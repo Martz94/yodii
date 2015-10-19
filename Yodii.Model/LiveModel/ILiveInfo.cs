@@ -42,14 +42,19 @@ namespace Yodii.Model
     public interface ILiveInfo
     {
         /// <summary>
-        /// Gets an observable list of currently available plugins.
+        /// Gets an observable read-only list of currently available plugins.
         /// </summary>
         IObservableReadOnlyList<ILivePluginInfo> Plugins { get; }
         
         /// <summary>
-        /// Gets an observable list of currently available services.
+        /// Gets an observable read-only list of currently available services.
         /// </summary>
         IObservableReadOnlyList<ILiveServiceInfo> Services { get; }
+
+        /// <summary>
+        /// Gets an observable read-only list of currently available items.
+        /// </summary>
+        IObservableReadOnlyList<ILiveYodiiItem> Items { get; }
         
         /// <summary>
         /// Currently active <see cref="YodiiCommand"/>.

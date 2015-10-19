@@ -46,6 +46,7 @@ namespace Yodii.Engine.Tests
             Assert.That( engine.LiveInfo, Is.Not.Null );
             Assert.That( engine.LiveInfo.Plugins.Count, Is.EqualTo( 0 ) );
             Assert.That( engine.LiveInfo.Services.Count, Is.EqualTo( 0 ) );
+            Assert.That( engine.LiveInfo.Items.Count, Is.EqualTo( 0 ) );
 
             Assert.DoesNotThrow( () => engine.Configuration.SetDiscoveredInfo( null ) );
             DiscoveredInfo info = MockInfoFactory.ServiceWithTwoPlugins();
@@ -55,13 +56,16 @@ namespace Yodii.Engine.Tests
 
             Assert.That( engine.LiveInfo.Plugins.Count, Is.EqualTo( 0 ) );
             Assert.That( engine.LiveInfo.Services.Count, Is.EqualTo( 0 ) );
+            Assert.That( engine.LiveInfo.Items.Count, Is.EqualTo( 0 ) );
+
             Assert.That( engine.IsRunning, Is.False );
             
             engine.StartEngine().CheckSuccess();
             Assert.That( engine.IsRunning );
             Assert.That( engine.LiveInfo.Plugins.Count, Is.EqualTo( 2 ) );
             Assert.That( engine.LiveInfo.Services.Count, Is.EqualTo( 1 ) );
-            
+            Assert.That( engine.LiveInfo.Items.Count, Is.EqualTo( 3 ) );
+
             engine.StartPlugin( "PluginA-1" ).CheckSuccess();
             Assert.Throws<ArgumentNullException>( () => engine.StartPlugin( null ) );
             Assert.That( engine.StartPlugin( "Unexisiting plugin name." ).Success, Is.False );
@@ -71,6 +75,8 @@ namespace Yodii.Engine.Tests
             Assert.That( engine.IsRunning, Is.False );
             Assert.That( engine.LiveInfo.Plugins.Count, Is.EqualTo( 0 ) );
             Assert.That( engine.LiveInfo.Services.Count, Is.EqualTo( 0 ) );
+            Assert.That( engine.LiveInfo.Items.Count, Is.EqualTo( 0 ) );
+
             Assert.Throws<InvalidOperationException>( () => engine.StartPlugin( "PluginA-1" ) );
         }
 

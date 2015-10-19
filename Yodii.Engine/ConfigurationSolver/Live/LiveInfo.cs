@@ -37,6 +37,7 @@ namespace Yodii.Engine
         readonly YodiiEngine _engine;
         readonly CKObservableSortedArrayKeyList<LivePluginInfo,string> _plugins;
         readonly CKObservableSortedArrayKeyList<LiveServiceInfo,string> _services;
+        readonly CKObservableSortedArrayKeyList<LiveYodiiItemInfo, string> _items;
 
         internal LiveInfo(YodiiEngine engine)
         {
@@ -44,6 +45,7 @@ namespace Yodii.Engine
             _engine = engine;
             _plugins = new CKObservableSortedArrayKeyList<LivePluginInfo, string>( l => l.PluginInfo.PluginFullName );
             _services = new CKObservableSortedArrayKeyList<LiveServiceInfo, string>( l => l.ServiceInfo.ServiceFullName );
+            _items = new CKObservableSortedArrayKeyList<LiveYodiiItemInfo, string>( l=>l.FullName );
         }
 
         public IObservableReadOnlyList<YodiiCommand> YodiiCommands 
@@ -59,6 +61,11 @@ namespace Yodii.Engine
         public IObservableReadOnlyList<ILiveServiceInfo> Services
         {
             get { return _services; }
+        }
+
+        public IObservableReadOnlyList<ILiveYodiiItem> Items
+        {
+            get { return _items; }
         }
 
         public ILiveServiceInfo FindService( string serviceFullName )
@@ -89,8 +96,13 @@ namespace Yodii.Engine
             // 1 - Removes existing items from live info that do not exist anymore in the new running context.
             //     This raises Collection "item removed" events.
             //
-            _services.RemoveWhereAndReturnsRemoved( s => solver.FindService( s.ServiceInfo.ServiceFullName ) == null ).Count();
-            _plugins.RemoveWhereAndReturnsRemoved( p => solver.FindPlugin( p.PluginInfo.PluginFullName ) == null ).Count();
+            Func<LiveYodiiItemInfo, bool> nullItemFinder = i => i.IsPlugin
+                ? solver.FindPlugin( i.FullName ) == null
+                : solver.FindService( i.FullName ) == null;
+
+            _services.RemoveWhereAndReturnsRemoved( nullItemFinder ).Count();
+            _plugins.RemoveWhereAndReturnsRemoved( nullItemFinder ).Count();
+            _items.RemoveWhereAndReturnsRemoved( nullItemFinder ).Count();
 
             DelayedPropertyNotification notifier = new DelayedPropertyNotification();
 
@@ -138,6 +150,9 @@ namespace Yodii.Engine
             foreach( var ls in servicesToAdd ) _services.Add( ls );
             foreach( var lp in pluginsToAdd ) _plugins.Add( lp );
 
+            var itemsToAdd = servicesToAdd.Union<LiveYodiiItemInfo>( pluginsToAdd );
+            foreach( var li in itemsToAdd ) { _items.Add( li ); }
+
             // 5 - Raises all PropertyChanged events for all objects.
             notifier.RaiseEvents();
         }
@@ -164,6 +179,7 @@ namespace Yodii.Engine
         {
             _plugins.Clear();
             _services.Clear();
+            _items.Clear();
         }
 
         /// <summary>
