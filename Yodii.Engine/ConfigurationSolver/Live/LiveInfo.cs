@@ -150,7 +150,7 @@ namespace Yodii.Engine
             foreach( var ls in servicesToAdd ) _services.Add( ls );
             foreach( var lp in pluginsToAdd ) _plugins.Add( lp );
 
-            var itemsToAdd = servicesToAdd.Union<LiveYodiiItemInfo>( pluginsToAdd );
+            var itemsToAdd = _services.Union<LiveYodiiItemInfo>( _plugins );
             foreach( var li in itemsToAdd ) { _items.Add( li ); }
 
             // 5 - Raises all PropertyChanged events for all objects.

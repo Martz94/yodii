@@ -178,6 +178,24 @@ namespace Yodii.Engine.Tests
             Assert.That( callCount, Is.EqualTo( 4 ) );
         }
 
+        [Test]
+        public void checking_live_info_item_count()
+        {
+            var engine = new YodiiEngine( new BuggyYodiiEngineHostMock() );
+            IDiscoveredInfo info = MockInfoFactory.SimpleGraph();
+            
+            engine.Configuration.SetDiscoveredInfo( info );
+            engine.StartEngine();
 
+            Assert.That( engine.LiveInfo.Items.Count, Is.EqualTo( info.ItemInfos.Count ) );
+            
+            engine.StopEngine();
+            info = MockInfoFactory.SimpleGraphWithSpecializedService();
+            engine.Configuration.SetDiscoveredInfo( info );
+            engine.StartEngine();
+
+            Assert.That(engine.LiveInfo.Items.Count(), Is.EqualTo( info.ItemInfos.Count ) );
+            engine.StopEngine();
+        }
     }
 }
