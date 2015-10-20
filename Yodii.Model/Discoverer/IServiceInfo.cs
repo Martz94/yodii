@@ -21,10 +21,6 @@
 *-----------------------------------------------------------------------------*/
 #endregion
 
-using System;
-using CK.Core;
-using System.Collections.Generic;
-
 namespace Yodii.Model
 {
     /// <summary>
@@ -41,12 +37,5 @@ namespace Yodii.Model
         /// Gets the <see cref="IServiceInfo"/> that generalizes this one if it exists.
         /// </summary>
         IServiceInfo Generalization { get; }
-
-        /// <summary>
-        /// Gets the assembly info that contains (defines) this interface.
-        /// If the service interface itself has not been found, this is null.
-        /// </summary>
-        IAssemblyInfo AssemblyInfo { get; }
-
     }
 }

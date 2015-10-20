@@ -47,6 +47,7 @@ namespace Yodii.Discoverer.Tests
             Assert.That( info.PluginInfos.First( p => p.PluginFullName == "Yodii.Discoverer.Tests.SamplePlugin" ).Service == info.ServiceInfos.First( s => s.ServiceFullName == "Yodii.Discoverer.Tests.ISampleService" ) );
             Assert.That( info.PluginInfos.First( p => p.PluginFullName == "Yodii.Discoverer.Tests.SamplePlugin" ).ServiceReferences.FirstOrDefault().Reference == info.ServiceInfos.First( s => s.ServiceFullName == "Yodii.Discoverer.Tests.IAnotherService" ) );
             Assert.That( info.PluginInfos.First( p => p.PluginFullName == "Yodii.Discoverer.Tests.SamplePlugin" ).ServiceReferences.FirstOrDefault().Requirement == DependencyRequirement.Optional );
+            Assert.AreEqual( info.ItemInfos.Count, info.PluginInfos.Count + info.ServiceInfos.Count );
         }
 
         [Test]

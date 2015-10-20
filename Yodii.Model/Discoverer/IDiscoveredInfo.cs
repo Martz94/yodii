@@ -21,8 +21,6 @@
 *-----------------------------------------------------------------------------*/
 #endregion
 
-using System;
-using CK.Core;
 using System.Collections.Generic;
 
 namespace Yodii.Model
@@ -30,6 +28,7 @@ namespace Yodii.Model
     /// <summary>
     /// Container for Plugins and Services discovered on a system.
     /// </summary>
+    ///
     public interface IDiscoveredInfo
     {
         /// <summary>
@@ -46,5 +45,10 @@ namespace Yodii.Model
         /// List of all discovered plugins on this system.
         /// </summary>
         IReadOnlyList<IPluginInfo> PluginInfos { get; }
+
+        /// <summary>
+        /// List of all discovered items on this system.
+        /// </summary>
+        IReadOnlyList<IDiscoveredItem> ItemInfos { get; }
     }
 }

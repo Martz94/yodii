@@ -354,7 +354,5 @@ namespace Yodii.Discoverer
             }
             return false;
         }
-
-        private IAssemblyInfo currentIfNotYetLoaded { get; set; }
     }
 }

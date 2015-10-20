@@ -51,6 +51,8 @@ namespace Yodii.Engine.Tests
             {
                 get { throw new NotImplementedException(); }
             }
+
+            public IReadOnlyList<IDiscoveredItem> ItemInfos { get { throw new NotImplementedException(); } }
         }
 
 

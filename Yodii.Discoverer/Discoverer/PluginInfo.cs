@@ -33,25 +33,19 @@ using System.Runtime.InteropServices;
 namespace Yodii.Discoverer
 {
     [Serializable]
-    internal sealed class PluginInfo : IPluginInfo, IDiscoveredItem, IPluginCtorInfo
+    internal sealed class PluginInfo : ItemInfo, IPluginInfo, IPluginCtorInfo
     {
-        readonly string _pluginFullName;
-        readonly IAssemblyInfo _assemblyInfo;
         readonly IReadOnlyList<IServiceReferenceInfo> _serviceReferences;
         readonly int _parameterCount;
         readonly IReadOnlyList<IPluginCtorKnownParameterInfo> _knownParameters;
         readonly IServiceInfo _service;
-        readonly string _errorMessage;
 
         internal PluginInfo( string pluginFullName, IAssemblyInfo assemblyInfo, IServiceInfo implService, List<ServiceReferenceInfo> services, int ctorParameterCount, List<PluginInfoKnownParameter> knownParameters )
+            : base(pluginFullName, assemblyInfo)
         {
-            Debug.Assert( !String.IsNullOrEmpty( pluginFullName ) );
-            Debug.Assert( assemblyInfo != null );
-
-            _pluginFullName = pluginFullName;
-            _assemblyInfo = assemblyInfo;
             _service = implService;
             _parameterCount = ctorParameterCount;
+            
             if( services != null )
             {
                 foreach( var sRef in services ) sRef.Owner = this;
@@ -61,23 +55,16 @@ namespace Yodii.Discoverer
             _knownParameters = knownParameters != null ? knownParameters.ToReadOnlyList() : CKReadOnlyListEmpty<PluginInfoKnownParameter>.Empty;
         }
 
-        internal PluginInfo( string pluginFullName, IAssemblyInfo assemblyInfo, string errorMessage )
+        internal PluginInfo( string pluginFullName, IAssemblyInfo assemblyInfo, string errorMessage ) : base(pluginFullName, assemblyInfo, errorMessage)
         {
-            _pluginFullName = pluginFullName;
-            _assemblyInfo = assemblyInfo;
-            _errorMessage = errorMessage;
             _serviceReferences = CKReadOnlyListEmpty<ServiceReferenceInfo>.Empty;
             _knownParameters = CKReadOnlyListEmpty<PluginInfoKnownParameter>.Empty;
         }
 
+        //For now.
         public string PluginFullName
         {
-            get { return _pluginFullName; }
-        }
-
-        public IAssemblyInfo AssemblyInfo
-        {
-            get { return _assemblyInfo; }
+            get { return FullName; }
         }
 
         public IReadOnlyList<IServiceReferenceInfo> ServiceReferences
@@ -104,16 +91,5 @@ namespace Yodii.Discoverer
         {
             get { return _knownParameters; }
         }
-
-        public bool HasError
-        {
-            get { return _errorMessage != null; }
-        }
-
-        public string ErrorMessage
-        {
-            get { return _errorMessage; }
-        }
-
     }
 }

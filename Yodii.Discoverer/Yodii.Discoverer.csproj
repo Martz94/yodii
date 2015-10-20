@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Discoverer\AssemblyInfo.cs" />
+    <Compile Include="Discoverer\ItemInfo.cs" />
     <Compile Include="Discoverer\PluginInfoKnownParameter.cs" />
     <Compile Include="Discoverer\DiscoveredInfo.cs" />
     <Compile Include="Discoverer\StandardDiscoverer.CachedAssemblyInfo.cs" />

@@ -24,9 +24,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 using Yodii.Model;
 
@@ -53,6 +50,7 @@ namespace Yodii.Engine.Tests.Mocks
         }
 
         public AssemblyName AssemblyName { get { return _assemblyName; } }
+        public IReadOnlyList<IDiscoveredItem> Items { get { throw new NotImplementedException(); } }
 
         public IReadOnlyList<IPluginInfo> Plugins
         {

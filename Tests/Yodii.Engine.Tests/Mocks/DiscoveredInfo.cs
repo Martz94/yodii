@@ -35,7 +35,6 @@ namespace Yodii.Engine.Tests.Mocks
     {
         readonly List<PluginInfo> _plugins;
         readonly List<ServiceInfo> _services;
-
         public DiscoveredInfo()
         {
             _plugins = new List<PluginInfo>();
@@ -63,6 +62,11 @@ namespace Yodii.Engine.Tests.Mocks
         public List<PluginInfo> PluginInfos
         {
             get { return _plugins; }
+        }
+
+        IReadOnlyList<IDiscoveredItem> IDiscoveredInfo.ItemInfos
+        {
+            get { return _plugins.Union<IDiscoveredItem>(_services).ToReadOnlyList(); }
         }
 
         IReadOnlyList<IPluginInfo> IDiscoveredInfo.PluginInfos

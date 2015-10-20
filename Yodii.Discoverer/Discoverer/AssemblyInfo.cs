@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using CK.Core;
 using Yodii.Model;
 
 namespace Yodii.Discoverer
@@ -39,6 +40,7 @@ namespace Yodii.Discoverer
         string _errorMessage;
         IReadOnlyList<ServiceInfo> _services;
         IReadOnlyList<PluginInfo> _plugins;
+        IReadOnlyList<IDiscoveredItem> _items;
 
         internal AssemblyInfo( Uri location, string errorMessage )
         {
@@ -61,19 +63,17 @@ namespace Yodii.Discoverer
 
         public AssemblyName AssemblyName { get { return _assemblyName; } }
 
-        public bool HasErrorMessage { get { return _errorMessage != null; } }
-
-        public string ErrorMessage { get { return _errorMessage; } }
-
         public IReadOnlyList<IServiceInfo> Services { get { return _services; } }
 
         public IReadOnlyList<IPluginInfo> Plugins { get { return _plugins; } }
+        public IReadOnlyList<IDiscoveredItem> Items { get { return _items; } }
 
         internal void SetResult( IReadOnlyList<ServiceInfo> services, IReadOnlyList<PluginInfo> plugins )
         {
             Debug.Assert( services != null && plugins != null );
             _services = services;
             _plugins = plugins;
+            _items = _services.Union<IDiscoveredItem>(_plugins).ToReadOnlyList();
         }
 
         internal void SetError( string message )
@@ -81,5 +81,5 @@ namespace Yodii.Discoverer
             Debug.Assert( message != null );
             _errorMessage = message;
         }
-}
+    }
 }

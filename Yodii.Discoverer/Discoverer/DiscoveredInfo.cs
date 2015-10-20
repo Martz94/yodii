@@ -37,12 +37,13 @@ namespace Yodii.Discoverer
         readonly IReadOnlyList<IAssemblyInfo> _assemblies;
         readonly IReadOnlyList<IPluginInfo> _allPlugins;
         readonly IReadOnlyList<IServiceInfo> _allServices;
-
-        internal DiscoveredInfo( IReadOnlyList<IAssemblyInfo> assemblies )
+        readonly IReadOnlyList<IDiscoveredItem> _allItems; 
+        internal DiscoveredInfo(IReadOnlyList<IAssemblyInfo> assemblies)
         {
             _assemblies = assemblies;
-            _allPlugins = _assemblies.SelectMany( p => p.Plugins ).ToReadOnlyList();
-            _allServices = _assemblies.SelectMany( s => s.Services ).ToReadOnlyList();
+            _allPlugins = _assemblies.SelectMany(p => p.Plugins).ToReadOnlyList();
+            _allServices = _assemblies.SelectMany(s => s.Services).ToReadOnlyList();
+            _allItems = _assemblies.SelectMany(i => i.Items).ToReadOnlyList();
         }
 
         public IReadOnlyList<IPluginInfo> PluginInfos
@@ -53,6 +54,11 @@ namespace Yodii.Discoverer
         public IReadOnlyList<IServiceInfo> ServiceInfos
         {
             get { return _allServices; }
+        }
+
+        public IReadOnlyList<IDiscoveredItem> ItemInfos
+        {
+            get { return _allItems; }
         }
 
         public IReadOnlyList<IAssemblyInfo> AssemblyInfos

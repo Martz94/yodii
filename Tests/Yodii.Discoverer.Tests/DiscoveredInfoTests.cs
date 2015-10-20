@@ -31,7 +31,5 @@ namespace Yodii.Discoverer.Tests
                 return (T)f.Deserialize( s );
             }
         }
-
-
     }
 }

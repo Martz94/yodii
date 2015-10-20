@@ -21,11 +21,6 @@
 *-----------------------------------------------------------------------------*/
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Yodii.Model
 {
     /// <summary>
@@ -33,6 +28,11 @@ namespace Yodii.Model
     /// </summary>
     public interface IDiscoveredItem
     {
+        /// <summary>
+        /// Gets the assembly info that contains this item.
+        /// </summary>
+        IAssemblyInfo AssemblyInfo { get; }
+
         /// <summary>
         /// Whether this item is on error.
         /// Typically an error occurred during the discovery phase.

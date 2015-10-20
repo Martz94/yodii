@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="ConfigurationLayerTests.cs" />
     <Compile Include="Extensions\ConfigurationManagerExtensions.cs" />
+    <Compile Include="Mocks\ItemInfo.cs" />
     <Compile Include="Tests\ConfigurationManagerTests.cs" />
     <Compile Include="Tests\ConfigurationSolverTests\DynamicConfigurationTests.cs" />
     <Compile Include="Tests\ConfigurationSolverTests\StaticConfigurationTests.cs">

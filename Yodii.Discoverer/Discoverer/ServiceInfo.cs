@@ -22,36 +22,24 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using Yodii.Model;
-using CK.Core;
 
 namespace Yodii.Discoverer
 {
     [Serializable]
-    internal sealed class ServiceInfo : IServiceInfo, IDiscoveredItem
+    internal sealed class ServiceInfo : ItemInfo, IServiceInfo
     {
-        readonly string _serviceFullName;
-        readonly IAssemblyInfo _assemblyInfo;
         IServiceInfo _generalization;
+        public int Depth;
 
-        internal ServiceInfo( string serviceFullName, IAssemblyInfo assemblyInfo )
+        internal ServiceInfo( string serviceFullName, IAssemblyInfo assemblyInfo ) : base(serviceFullName, assemblyInfo)
         {
-            Debug.Assert( !String.IsNullOrEmpty( serviceFullName ) );
-            Debug.Assert( assemblyInfo != null );
-
-            _serviceFullName = serviceFullName;
-            _assemblyInfo = assemblyInfo;
         }
 
-        #region IServiceInfo Members
-
-        public string ServiceFullName
+        //For now.
+        string IServiceInfo.ServiceFullName
         {
-            get { return _serviceFullName; }
+            get { return FullName; }
         }
 
         public IServiceInfo Generalization
@@ -59,24 +47,5 @@ namespace Yodii.Discoverer
             get { return _generalization; }
             internal set { _generalization = value; }
         }
-
-        public IAssemblyInfo AssemblyInfo
-        {
-            get { return _assemblyInfo; }
-        }
-
-        #endregion
-
-        public int Depth;
-
-        public bool HasError
-        {
-            get { return false; }
-        }
-
-        public string ErrorMessage
-        {
-            get { return null; }
-        }
-    }
+   }
 }

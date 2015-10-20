@@ -44,6 +44,11 @@ namespace Yodii.Model
         AssemblyName AssemblyName { get; }
 
         /// <summary>
+        /// Gets the items located in this assembly.
+        /// </summary>
+        IReadOnlyList<IDiscoveredItem> Items { get; }
+
+        /// <summary>
         /// Gets the plugins located in this assembly.
         /// </summary>
         IReadOnlyList<IPluginInfo> Plugins { get; }

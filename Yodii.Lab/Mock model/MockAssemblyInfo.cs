@@ -38,14 +38,16 @@ namespace Yodii.Lab.Mocks
         readonly string _assemblyFileName;
         readonly List<IPluginInfo> _plugins;
         readonly List<IServiceInfo> _services;
+        readonly List<IDiscoveredItem> _items;
 
-        internal MockAssemblyInfo( string assemblyFileName )
+        internal MockAssemblyInfo(string assemblyFileName)
         {
-            Debug.Assert( !String.IsNullOrEmpty( assemblyFileName ) );
+            Debug.Assert(!String.IsNullOrEmpty(assemblyFileName));
 
             _assemblyFileName = assemblyFileName;
             _plugins = new List<IPluginInfo>();
             _services = new List<IServiceInfo>();
+            _items = new List<IDiscoveredItem>();
         }
 
         #region IAssemblyInfo Members
@@ -59,6 +61,11 @@ namespace Yodii.Lab.Mocks
         {
             get { return _plugins.Count > 0 || _services.Count > 0; }
         }
+
+        public IReadOnlyList<IDiscoveredItem> Items
+        {
+            get { return _items.AsReadOnly(); }
+        }   
 
         public IReadOnlyList<IPluginInfo> Plugins
         {

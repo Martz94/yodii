@@ -32,21 +32,13 @@ using CK.Core;
 
 namespace Yodii.Engine.Tests.Mocks
 {
-    public class PluginInfo : IPluginInfo, IPluginCtorInfo
+    public class PluginInfo : ItemInfo, IPluginInfo, IPluginCtorInfo
     {
-        readonly string _pluginFullName;
-        readonly IAssemblyInfo _assemblyInfo;
         readonly List<IServiceReferenceInfo> _serviceReferences;
         IServiceInfo _service;
-        bool _hasError; 
-
-        internal PluginInfo( string pluginFullName, IAssemblyInfo assemblyInfo )
+ 
+        internal PluginInfo( string pluginFullName, IAssemblyInfo assemblyInfo ): base(pluginFullName, assemblyInfo)
         {
-            Debug.Assert( !String.IsNullOrEmpty( pluginFullName ) );
-            Debug.Assert( assemblyInfo != null );
-
-            _pluginFullName = pluginFullName;
-            _assemblyInfo = assemblyInfo;
             _serviceReferences = new List<IServiceReferenceInfo>();
         }
 
@@ -60,12 +52,7 @@ namespace Yodii.Engine.Tests.Mocks
 
         public string PluginFullName
         {
-            get { return _pluginFullName; }
-        }
-
-        public IAssemblyInfo AssemblyInfo
-        {
-            get { return _assemblyInfo; }
+            get { return FullName; }
         }
 
         public List<IServiceReferenceInfo> ServiceReferences
@@ -105,18 +92,6 @@ namespace Yodii.Engine.Tests.Mocks
                 if ( _service != null ) ((ServiceInfo)_service).AddPlugin( this );
             }
         }
-
-        public bool HasError
-        {
-            get { return _hasError; }
-            set { _hasError = value; }
-        }
-
-        public string ErrorMessage
-        {
-            get { return _hasError ? "An error occurred." : null; }
-        }
-
 
         IReadOnlyList<IServiceReferenceInfo> IPluginInfo.ServiceReferences
         {
