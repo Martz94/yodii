@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{790E64FB-81AC-41ED-8961-05D2774384E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Weavers</RootNamespace>
+    <AssemblyName>Weavers</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CK.Core">
+      <HintPath>..\lib\CK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CK.Reflection, Version=4.1.0.0, Culture=neutral, PublicKeyToken=edfa2f62fc978217, processorArchitecture=MSIL">
+      <HintPath>..\packages\CK.Reflection.4.1.0\lib\net40\CK.Reflection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\packages\FodyCecil.1.29.4\lib\net40\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>..\packages\FodyCecil.1.29.4\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>..\packages\FodyCecil.1.29.4\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>..\packages\FodyCecil.1.29.4\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="CatchExceptionGeneration.cs" />
+    <Compile Include="IPluginProxy.cs" />
+    <Compile Include="IServiceHost.cs" />
+    <Compile Include="IServiceHostConfiguration.cs" />
+    <Compile Include="ISimpleServiceHostConfiguration.cs" />
+    <Compile Include="PluginStatus.cs" />
+    <Compile Include="ServiceCallBlockedException.cs" />
+    <Compile Include="ServiceStoppedException.cs" />
+    <Compile Include="Service\DefaultProxyDefinition.cs" />
+    <Compile Include="Service\IProxyDefinition.cs" />
+    <Compile Include="Log\ILogCenter.cs" />
+    <Compile Include="Log\ILogEntry.cs" />
+    <Compile Include="Log\ILogErrorCaught.cs" />
+    <Compile Include="Log\ILogErrorCulprit.cs" />
+    <Compile Include="Log\ILogEventEntry.cs" />
+    <Compile Include="Log\ILogEventError.cs" />
+    <Compile Include="Log\ILogEventNotRunningError.cs" />
+    <Compile Include="Log\ILogExternalEntry.cs" />
+    <Compile Include="Log\ILogExternalErrorEntry.cs" />
+    <Compile Include="Log\ILogInterceptionEntry.cs" />
+    <Compile Include="Log\ILogMethodEntry.cs" />
+    <Compile Include="Log\ILogMethodError.cs" />
+    <Compile Include="Log\ILogWithParametersEntry.cs" />
+    <Compile Include="Log\LogEntryType.cs" />
+    <Compile Include="Log\LogEventArgs.cs" />
+    <Compile Include="Log\LogHostEventArgs.cs" />
+    <Compile Include="ModuleWeaver.cs" />
+    <Compile Include="Plugin\CancellationInfo.cs" />
+    <Compile Include="Plugin\CancelPreStartContext.cs" />
+    <Compile Include="Plugin\CancelPreStopContext.cs" />
+    <Compile Include="Plugin\PluginProxy.cs" />
+    <Compile Include="Plugin\PluginProxyBase.cs" />
+    <Compile Include="Plugin\ServiceManager.cs" />
+    <Compile Include="Plugin\StContext.cs" />
+    <Compile Include="Plugin\StStartContext.cs" />
+    <Compile Include="Plugin\StStopContext.cs" />
+    <Compile Include="Service\ProxyFactory.cs" />
+    <Compile Include="ServiceCallException.cs" />
+    <Compile Include="ServiceLogEventOptions.cs" />
+    <Compile Include="ServiceLogMethodOptions.cs" />
+    <Compile Include="ServiceNotAvailableException.cs" />
+    <Compile Include="Service\LogEventEntry.cs" />
+    <Compile Include="Service\LogEventEntryError.cs" />
+    <Compile Include="Service\LogEventNotRunningError.cs" />
+    <Compile Include="Service\LogExternalEntry.cs" />
+    <Compile Include="Service\LogExternalErrorEntry.cs" />
+    <Compile Include="Service\LogMethodEntry.cs" />
+    <Compile Include="Service\LogMethodEntryError.cs" />
+    <Compile Include="Service\LogMethodError.cs" />
+    <Compile Include="Service\ServiceHost.cs" />
+    <Compile Include="Service\ServiceProxyBase.cs" />
+    <Compile Include="Service\SimpleServiceHostConfiguration.cs" />
+    <Compile Include="Service\UseTheProxyBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Yodii.Model\Yodii.Model.csproj">
+      <Project>{db68716f-9883-433a-928d-aa597d377c9c}</Project>
+      <Name>Yodii.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
